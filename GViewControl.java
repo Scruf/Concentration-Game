@@ -3,6 +3,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.util.Observable;
 import java.util.ArrayList;
+
 /**
  * Created by scruf on 11/20/15.
  */
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 public class GViewControl extends javax.swing.JFrame implements  java.util.Observer{
     public ConcentrationModel concentration;
     public static Observable observer;
+    public boolean firstCard = false;
+    public static JLabel label;
     public GViewControl(ConcentrationModel  model){
         this.concentration = model;
     }
@@ -18,6 +21,7 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
         observer = new Observable();
         GViewControl gViewControl = new GViewControl(new ConcentrationModel());
         JButton reset,cheat,undo;
+        label = new JLabel("Moves: 0 Select the first card.");
         reset = new JButton("Reset");
         cheat = new JButton("Cheat");
         undo = new JButton("Undo");
@@ -25,10 +29,15 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
         //create empty 16 buttons
         //change their size to 100x100
         //set each button name to a corresponding index
+
         for(int i=0;i<16;i++){
             buttons.add(new JButton(" "));
-            buttons.get(i).setPreferredSize(new Dimension(100,100));
+            buttons.get(i).setPreferredSize(new Dimension(100, 100));
             buttons.get(i).setName(String.valueOf(i));
+            buttons.get(i).setBackground(Color.WHITE);
+            buttons.get(i).setBorderPainted(false);
+            buttons.get(i).setContentAreaFilled(false);
+            buttons.get(i).setOpaque(true);
         }
         observer.addObserver(gViewControl);
         JFrame frame = new JFrame();
@@ -38,7 +47,7 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
         for(JButton but : buttons){
             panel.add(but);
         }
-
+        panel.add(label,BorderLayout.NORTH);
         panel.add(cheat);
         panel.add(undo);
         panel.add(reset);
@@ -57,8 +66,10 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
             btn.addActionListener(e->{
               gViewControl.concentration.selectCard(Integer.parseInt(btn.getName()));
                 System.out.println(gViewControl.concentration.getCards());
+                CardButton button = new CardButton(Integer.parseInt(btn.getName()));
+                gViewControl.update(null,new ActionPerformed(btn,Integer.parseInt(btn.getName())));
                /* btn.setText(String.valueOf(gViewControl.concentration.getCards().get(Integer.parseInt(btn.getName()))));*/
-               observer.notify();
+
             });
         }
 
@@ -67,6 +78,8 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
 
     @Override
     public void update(Observable observable, Object o) {
-        System.out.println("Something has been changed");
+
+
     }
 }
+
