@@ -62,13 +62,19 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        System.out.println("The size of the list is "+buttons.size());
-
+        System.out.println("The size of the list is " + buttons.size());
+        reset.addActionListener(e-> {
+            for(JButton btn : buttons){
+                btn.setText(" ");
+                btn.setBackground(Color.WHITE);
+            }
+        });
         for(JButton btn : buttons){
 
             btn.addActionListener(e->{
               gViewControl.concentration.selectCard(Integer.parseInt(btn.getName()));
                 System.out.println(gViewControl.concentration.getCards()+"THere are "+gViewControl.concentration.howManyCardsUp());
+                btn.setBackground(Color.GREEN);
                 CardButton button = new CardButton(Integer.parseInt(btn.getName()));
                 gViewControl.update(null,new ActionPerformed(btn,Integer.parseInt(btn.getName())));
                /* btn.setText(String.valueOf(gViewControl.concentration.getCards().get(Integer.parseInt(btn.getName()))));*/
@@ -85,8 +91,8 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
     public void update(Observable observable, Object o) {
         ActionPerformed action = (ActionPerformed)o;
         JButton btn = action.getButton();
-        if(selected.size()<2)
-            selected.add(btn);
+        System.out.print("Size of the queue is "+selected.size());
+        selected.add(btn);
         if(selected.size()==2){
             JButton first;
             JButton second;
@@ -103,7 +109,8 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
                 first.setText(" ");
                 second.setText(" ");
             }
-            selected.clear();
+            selected.remove(first);
+            selected.remove(second);
 
         }
         String text = String.valueOf(gViewControl.concentration.getCards().get(action.getPos()));
