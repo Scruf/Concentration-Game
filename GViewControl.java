@@ -19,10 +19,12 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
     public static Queue<JButton>  selected = new LinkedList<JButton>();
     //@param undoQueue will holl all buttons that has been pressed and will remove a button at a time when
     //undo pressed
-    public static Queue<JButton> undoQueu = new LinkedList<>();
+    public static Stack<JButton> undoQueu = new Stack<>();
     //@param colors will hold arraylist of colors
     public static ArrayList<Color> colors = new ArrayList<>();
+    //@param mapOfKeys will hold a number and its matching color
     public static HashMap<String,Color> mapOfKeys = new HashMap<>();
+    public static HashMap<String,Boolean> wasMatched = new HashMap<>();
     public GViewControl(ConcentrationModel  model){
         this.concentration = model;
     }
@@ -46,8 +48,10 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
         int counter=0;
         while(iter.hasNext()){
             String value = iter.next().toString();
-            if(counter!=7)
-                mapOfKeys.put(value,colors.get(counter));
+            if(counter!=7) {
+                mapOfKeys.put(value, colors.get(counter));
+                wasMatched.put(value,false);
+            }
             counter++;
         }
         for(Map.Entry<String,Color> item : mapOfKeys.entrySet()){
@@ -121,8 +125,13 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
         undo.addActionListener(e -> {
             try {
                 //pull from the queue of buttons that has been pressed previously
-                JButton btn = undoQueu.poll();
-                btn.setText(" ");
+                JButton btn = undoQueu.pop();
+                if(wasMatched.get(btn.getText()))
+                {
+                    JOptionPane.showMessageDialog(null,"Cannot turn a cards that is matched");
+                }
+                else{
+                btn.setText(" ");}
                 btn.setBackground(Color.WHITE);
             } catch (NullPointerException exc) {
                 JOptionPane.showMessageDialog(null, "Nothing to undo");
@@ -130,15 +139,15 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
 
         });
         //cheat button
-        cheat.addActionListener(e->{
-            JFrame cheatFrame  = new JFrame();
+        cheat.addActionListener(e -> {
+            JFrame cheatFrame = new JFrame();
             ArrayList<JButton> cheatButtons = new ArrayList<JButton>();
-            cheatFrame.setSize(375,375);
+            cheatFrame.setSize(375, 375);
             cheatFrame.setTitle("Cheat Concentration Game");
-            JPanel cheatPanel =  new JPanel();
-            for(int i=0;i<16;i++){
+            JPanel cheatPanel = new JPanel();
+            for (int i = 0; i < 16; i++) {
                 cheatButtons.add(new JButton(String.valueOf(gViewControl.concentration.cheat().get(i))));
-                cheatButtons.get(i).setPreferredSize(new Dimension(75,75));
+                cheatButtons.get(i).setPreferredSize(new Dimension(75, 75));
                 cheatButtons.get(i).setBorderPainted(false);
                 cheatButtons.get(i).setContentAreaFilled(false);
                 cheatButtons.get(i).setOpaque(true);
@@ -146,7 +155,7 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
 
 
             }
-            for(JButton btn : cheatButtons){
+            for (JButton btn : cheatButtons) {
                 cheatPanel.add(btn);
             }
             cheatFrame.add(cheatPanel);
@@ -179,6 +188,7 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
             if(first.getText().equals(second.getText())){
                 first.setBackground(mapOfKeys.get(first.getText()));
                 second.setBackground(mapOfKeys.get(second.getText()));
+                wasMatched.put(first.getText(),true);
             }
             else{
                 first.setBackground(Color.WHITE);
