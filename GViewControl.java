@@ -24,6 +24,7 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
     public static ArrayList<Color> colors = new ArrayList<>();
     //@param mapOfKeys will hold a number and its matching color
     public static HashMap<String,Color> mapOfKeys = new HashMap<>();
+    //@param wasmatched will hold all buttons that has been matched
     public static HashMap<String,Boolean> wasMatched = new HashMap<>();
     public GViewControl(ConcentrationModel  model){
         this.concentration = model;
@@ -100,7 +101,7 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        System.out.println("The size of the list is " + buttons.size());
+
         //reset Button will reset the screen to default
         reset.addActionListener(e-> {
             for(JButton btn : buttons){
@@ -114,7 +115,7 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
             btn.addActionListener(e->{
                 undoQueu.add(btn);
               gViewControl.concentration.selectCard(Integer.parseInt(btn.getName()));
-                System.out.println(gViewControl.concentration.getCards() + "THere are " + gViewControl.concentration.howManyCardsUp());
+
                 btn.setBackground(mapOfKeys.get(btn.getText()));
                gViewControl.update(null,new ActionPerformed(btn,Integer.parseInt(btn.getName())));
                /* btn.setText(String.valueOf(gViewControl.concentration.getCards().get(Integer.parseInt(btn.getName()))));*/
@@ -128,12 +129,12 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
                 JButton btn = undoQueu.pop();
                 if(wasMatched.get(btn.getText()))
                 {
-                    JOptionPane.showMessageDialog(null,"Cannot turn a cards that is matched");
+                    JOptionPane.showMessageDialog(null, "Cannot turn a cards that is matched");
                 }
                 else{
                 btn.setText(" ");}
                 btn.setBackground(Color.WHITE);
-            } catch (NullPointerException exc) {
+            } catch (EmptyStackException exc) {
                 JOptionPane.showMessageDialog(null, "Nothing to undo");
             }
 
@@ -172,7 +173,7 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
     public void update(Observable observable, Object o) {
         ActionPerformed action = (ActionPerformed)o;
         JButton btn = action.getButton();
-        System.out.print("Size of the queue is "+selected.size());
+
 
         String text = String.valueOf(gViewControl.concentration.getCards().get(action.getPos()));
         btn.setText(text);

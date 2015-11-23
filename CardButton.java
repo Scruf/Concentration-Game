@@ -1,5 +1,5 @@
 /**
- * Created by scruf on 11/20/15.
+ * Created by Egor Kozitski on 11/20/15.
  */
 public class CardButton extends javax.swing.JButton{
     /*

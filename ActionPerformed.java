@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 /**
- * Created by scruf on 11/22/15.
+ * Created by Egor Kozitski on 11/22/15.
  */
 public class ActionPerformed {
     private JButton button;
