@@ -86,18 +86,37 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
             });
         }
         //undo button
-        undo.addActionListener(e->{
+        undo.addActionListener(e -> {
             try {
-            //pull from the queue of buttons that has been pressed previously
+                //pull from the queue of buttons that has been pressed previously
                 JButton btn = undoQueu.poll();
                 btn.setText(" ");
                 btn.setBackground(Color.WHITE);
-            }catch(NullPointerException exc){
-                JOptionPane.showMessageDialog(null,"Nothing to undo");
+            } catch (NullPointerException exc) {
+                JOptionPane.showMessageDialog(null, "Nothing to undo");
             }
 
         });
+        //cheat button
+        cheat.addActionListener(e->{
+            JFrame cheatFrame  = new JFrame();
+            ArrayList<JButton> cheatButtons = new ArrayList<JButton>();
+            cheatFrame.setSize(375,375);
+            cheatFrame.setTitle("Cheat Concentration Game");
+            JPanel cheatPanel =  new JPanel();
+            for(int i=0;i<16;i++){
+                cheatButtons.add(new JButton(String.valueOf(gViewControl.concentration.cheat().get(i))));
+                cheatButtons.get(i).setPreferredSize(new Dimension(75,75));
+            }
+            for(JButton btn : cheatButtons){
+                cheatPanel.add(btn);
+            }
+            cheatFrame.add(cheatPanel);
+            cheatFrame.setVisible(true);
+            cheatFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+
+        });
 
     }
     public String parseButton(String temp){
