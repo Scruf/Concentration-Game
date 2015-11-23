@@ -1,9 +1,8 @@
 import javax.swing.*;
+import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
-import java.util.LinkedList;
-import java.util.Observable;
-import java.util.ArrayList;
-import java.util.Queue;
+import java.util.*;
+
 /**
  * Created by Egor Kozitski on 11/20/15.
  */
@@ -14,10 +13,16 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
     public boolean firstCard = false;
     public static JLabel label;
     public static GViewControl gViewControl;
+    //@param buttons will hold array list of buttons
     public static ArrayList<JButton> buttons;
+    //@param selected will hold all buttons that has been pressed
     public static Queue<JButton>  selected = new LinkedList<JButton>();
+    //@param undoQueue will holl all buttons that has been pressed and will remove a button at a time when
+    //undo pressed
     public static Queue<JButton> undoQueu = new LinkedList<>();
+    //@param colors will hold arraylist of colors
     public static ArrayList<Color> colors = new ArrayList<>();
+    public static HashMap<String,Color> mapOfKeys = new HashMap<>();
     public GViewControl(ConcentrationModel  model){
         this.concentration = model;
     }
@@ -30,7 +35,24 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
         colors.add(Color.CYAN);
         colors.add(Color.RED);
         colors.add(Color.GRAY);
+        Collections.shuffle(colors);
+        Set<String> distinctNumber = new HashSet<>();
+
         gViewControl = new GViewControl(new ConcentrationModel());
+        for(int i=0;i<gViewControl.concentration.cheat().size();i++){
+            distinctNumber.add(String.valueOf(gViewControl.concentration.cheat().get(i)));
+        }
+        Iterator iter = distinctNumber.iterator();
+        int counter=0;
+        while(iter.hasNext()){
+            String value = iter.next().toString();
+            if(counter!=7)
+                mapOfKeys.put(value,colors.get(counter));
+            counter++;
+        }
+        for(Map.Entry<String,Color> item : mapOfKeys.entrySet()){
+
+        }
         JButton reset,cheat,undo;
         label = new JLabel("Moves: 0 Select the first card.");
         reset = new JButton("Reset");
@@ -89,9 +111,8 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
                 undoQueu.add(btn);
               gViewControl.concentration.selectCard(Integer.parseInt(btn.getName()));
                 System.out.println(gViewControl.concentration.getCards() + "THere are " + gViewControl.concentration.howManyCardsUp());
-                btn.setBackground(Color.BLUE);
-                CardButton button = new CardButton(Integer.parseInt(btn.getName()));
-                gViewControl.update(null,new ActionPerformed(btn,Integer.parseInt(btn.getName())));
+                btn.setBackground(mapOfKeys.get(btn.getText()));
+               gViewControl.update(null,new ActionPerformed(btn,Integer.parseInt(btn.getName())));
                /* btn.setText(String.valueOf(gViewControl.concentration.getCards().get(Integer.parseInt(btn.getName()))));*/
 
             });
@@ -121,6 +142,8 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
                 cheatButtons.get(i).setBorderPainted(false);
                 cheatButtons.get(i).setContentAreaFilled(false);
                 cheatButtons.get(i).setOpaque(true);
+                cheatButtons.get(i).setBackground(mapOfKeys.get(cheatButtons.get(i).getText()));
+
 
             }
             for(JButton btn : cheatButtons){
@@ -154,8 +177,8 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
                 second=selected.poll();
 
             if(first.getText().equals(second.getText())){
-                first.setBackground(Color.GREEN);
-                second.setBackground(Color.GREEN);
+                first.setBackground(mapOfKeys.get(first.getText()));
+                second.setBackground(mapOfKeys.get(second.getText()));
             }
             else{
                 first.setBackground(Color.WHITE);
