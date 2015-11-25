@@ -1,0 +1,80 @@
+commit 649fce9a0b58870e7fb529b0fdf4449e2e3e41e6
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Mon Nov 23 12:43:26 2015 -0500
+
+    Final Commit!
+
+commit 3fbc2dff6e55496f62919ab67333c1dffdc5b461
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Mon Nov 23 12:16:29 2015 -0500
+
+    Undo button has been changed according to standards
+
+commit 45a050a667387c0e1763cde714f37628cb7190a2
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Mon Nov 23 12:00:52 2015 -0500
+
+    Colors added
+
+commit 992d55a9c29e02fe6650fa859e34f2b7d1e10f8a
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Mon Nov 23 11:24:54 2015 -0500
+
+    Selection fixed
+
+commit 1a6e9e0eb5e7d03b40c20b0d0c1735894747d554
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Mon Nov 23 10:38:41 2015 -0500
+
+    Cheat button is implemented
+    Color options and selection need further Revision
+
+commit a1619ed6aee77382c92fb18fc5165be3dc375b43
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Mon Nov 23 10:25:52 2015 -0500
+
+    Undo button implemented
+
+commit 8e108ef795cdb496c1720047a7ef0d74c2897f93
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Sun Nov 22 17:33:39 2015 -0500
+
+    Reset button implemented
+    Selection of cards need further revision nand additions
+
+commit 5632b2232b9b39a4063d2b90c2ad105aa4941020
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Sun Nov 22 17:19:18 2015 -0500
+
+    Partial implemetation of Grid with cards completed
+    Queue need further revision
+
+commit 407170e901bd2442f4e9ff131026ef37e5c6a94b
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Sun Nov 22 15:36:52 2015 -0500
+
+    Partal implementation of update method is completed
+
+commit d60b340bfe5c7cf26d2ed62a724f88628760403f
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Sun Nov 22 13:28:34 2015 -0500
+
+    Cards modified for bettr reusability
+
+commit bee4d162b1400dfb1769b417e3718a58f1dff774
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Sun Nov 22 12:08:20 2015 -0500
+
+    Buttons modified according to a standart
+
+commit 908aec3b84303f22aa51e5b25c01054409fc5dfc
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Sat Nov 21 13:35:29 2015 -0500
+
+    Cards and Buttons are added to a GUI
+
+commit fe7c9a142a18181997eb2a198249e028113446a1
+Author: scruf <ek5442@cs.rit.edu>
+Date:   Sat Nov 21 12:00:36 2015 -0500
+
+    Initial Commit

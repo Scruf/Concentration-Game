@@ -40,7 +40,8 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
         colors.add(Color.GRAY);
         Collections.shuffle(colors);
         Set<String> distinctNumber = new HashSet<>();
-
+        JPanel topPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
         gViewControl = new GViewControl(new ConcentrationModel());
         for(int i=0;i<gViewControl.concentration.cheat().size();i++){
             distinctNumber.add(String.valueOf(gViewControl.concentration.cheat().get(i)));
@@ -80,20 +81,18 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
 
         JFrame frame = new JFrame();
         frame.setSize(500, 500);
-        frame.setTitle("Egor Kozitski");
+        frame.setTitle("Egor Kozitski:Concentration Game");
         JPanel panel = new JPanel();
         for(JButton but : buttons){
             panel.add(but);
         }
-        panel.add(label,BorderLayout.NORTH);
-        //add cheat button to a panel
-        panel.add(cheat);
-        //add undo button to a panel
-        panel.add(undo);
-        //add rest button to a panel
-        panel.add(reset);
-        //add panel to a list
-        frame.add(panel);
+        topPanel.add(label);
+        bottomPanel.add(reset);
+        bottomPanel.add(cheat);
+        bottomPanel.add(undo);
+        frame.add(topPanel,BorderLayout.NORTH);
+        frame.add(bottomPanel,BorderLayout.SOUTH);
+        frame.add(panel,BorderLayout.CENTER);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
