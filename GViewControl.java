@@ -87,9 +87,9 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
             panel.add(but);
         }
         topPanel.add(label);
-        bottomPanel.add(reset);
-        bottomPanel.add(cheat);
-        bottomPanel.add(undo);
+        bottomPanel.add(cheat,BorderLayout.EAST);
+        bottomPanel.add(undo,BorderLayout.EAST);
+        bottomPanel.add(reset,BorderLayout.EAST);
         frame.add(topPanel,BorderLayout.NORTH);
         frame.add(bottomPanel,BorderLayout.SOUTH);
         frame.add(panel,BorderLayout.CENTER);
