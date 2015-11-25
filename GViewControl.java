@@ -104,8 +104,10 @@ public class GViewControl extends javax.swing.JFrame implements  java.util.Obser
         //reset Button will reset the screen to default
         reset.addActionListener(e-> {
             for(JButton btn : buttons){
+                selected.clear();
                 btn.setText(" ");
                 btn.setBackground(Color.WHITE);
+                btn.setSelected(false);
             }
         });
 
